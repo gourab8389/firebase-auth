@@ -3,7 +3,7 @@ import SubmitButton from "@/components/Button"
 import InputField from "@/components/InputField"
 import { LOGIN_ROUTE } from "@/constants/routes"
 import { auth } from "@/services/firebase";
-import { registerValidation } from "@/validationSchema/auth"
+import {useRegisterValidation } from "@/validationSchema/auth"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ const Register = () => {
 
   const router = useRouter();
 
-  const { handleSubmit, register, formState: { errors }, reset } = registerValidation();
+  const { handleSubmit, register, formState: { errors }, reset } = useRegisterValidation();
 
 
   const submitForm = async(values:any)=>{

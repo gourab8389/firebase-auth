@@ -8,7 +8,7 @@ const loginSchema = Yup.object({
     email: Yup.string().email("please enter valid email").required("this field is required"),
     password: Yup.string().required("this field is required").min(6,"please enter minimum 6 characters for password")
 })
-export const loginValidation = ()=> useForm({resolver: yupResolver(loginSchema)});
+export const useLoginValidation = ()=> useForm({resolver: yupResolver(loginSchema)});
 
 // schema for registration
 
@@ -17,7 +17,7 @@ export const loginValidation = ()=> useForm({resolver: yupResolver(loginSchema)}
     password: Yup.string().required("this field is required").min(6,"please enter minimum 6 characters for password"),
     cnfpassword: Yup.string().required("this field is required").oneOf([Yup.ref('password')],"entered password not matched")
 });
-export const registerValidation = ()=> useForm({resolver: yupResolver(registerSchema)});
+export const useRegisterValidation = ()=> useForm({resolver: yupResolver(registerSchema)});
 
 
 // schema for profile update 
@@ -33,4 +33,4 @@ const profileSchema = Yup.object({
     .oneOf([Yup.ref('password')], "Passwords must match")
 });
 
-export const profileValidation = () => useForm({ resolver: yupResolver(profileSchema) });
+export const useProfileValidation = () => useForm({ resolver: yupResolver(profileSchema) });

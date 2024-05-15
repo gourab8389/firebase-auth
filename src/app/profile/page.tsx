@@ -1,12 +1,12 @@
 import SubmitButton from "@/components/Button"
 import InputField from "@/components/InputField"
-import { profileValidation } from "@/validationSchema/auth";
+import { useProfileValidation } from "@/validationSchema/auth";
 
 
 const Profile = () => {
 
 
-  const {handleSubmit, register, formState:{errors}, reset} = profileValidation();
+  const {handleSubmit, register, formState:{errors}, reset} = useProfileValidation();
 
   return (
     <div className="h-screen flex  justify-center items-center bg-gradient-to-br from-pink-400 via-red-200 to-orange-400">

@@ -4,7 +4,7 @@ import InputField from "@/components/InputField"
 import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes"
 import Link from "next/link"
 import {auth} from '@/services/firebase';
-import { loginValidation } from "@/validationSchema/auth";
+import {useLoginValidation } from "@/validationSchema/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 const Login = () => {
 
   const router = useRouter();
-  const {handleSubmit, register, formState:{errors}, reset} = loginValidation();
+  const {handleSubmit, register, formState:{errors}, reset} = useLoginValidation();
 
   const submitForm =async(values:any) => {
     console.log("form values", values)
