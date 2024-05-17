@@ -2,9 +2,9 @@
 import SubmitButton from "@/components/Button"
 import InputField from "@/components/InputField"
 import { LOGIN_ROUTE } from "@/constants/routes"
-import { auth } from "@/services/firebase";
+import { auth } from "@/lib/firebase";
 import {useRegisterValidation } from "@/validationSchema/auth"
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword} from "firebase/auth";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 
@@ -21,14 +21,14 @@ const Register = () => {
   const submitForm = async(values:any)=>{
     console.log("Register form values",values);
     createUserWithEmailAndPassword(auth,values.email,values.password).then(async(response)=>{
-      const user = response.user;
-      await sendEmailVerification(user);
+      
       alert("user registered successfully"); 
       reset();
       router.push(LOGIN_ROUTE);
     }).catch(e=>{
       console.log("catch ",e.message)
       alert("Something went wrong please try again.")
+      reset();
     })
   }
 

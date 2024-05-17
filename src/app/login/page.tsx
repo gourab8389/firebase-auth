@@ -3,9 +3,9 @@ import SubmitButton from "@/components/Button"
 import InputField from "@/components/InputField"
 import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes"
 import Link from "next/link"
-import {auth} from '@/services/firebase';
+import {auth} from '@/lib/firebase';
 import {useLoginValidation } from "@/validationSchema/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 
@@ -21,10 +21,24 @@ const Login = () => {
       alert("Login successfully");
       reset();
       router.push(HOME_ROUTE);
+      
     }).catch(e=>{
          console.log("catch ",e.message)
-         alert("Information incorrect")
+         alert("user does not exist")
+         reset();
+        
        })
+
+       onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log('User is signed in.');
+            if (!user.emailVerified) {
+                console.log('Email not verified.');
+            }
+        } else {
+            console.log('No user is signed in.');
+        }
+    });
   }
 
   return (
@@ -56,7 +70,7 @@ const Login = () => {
         </form>
         <div className="h-20 mx-auto">
           <span className="text-sm text-gray-600 font-semibold">
-            Don't have an account?
+            Don&apost have an account?
             <Link href={REGISTER_ROUTE}>
             <span className="text-blue-700 font-bold text-md hover:text-blue-950 underline">
               Register Here

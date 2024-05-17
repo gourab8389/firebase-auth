@@ -1,16 +1,40 @@
 import { HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 
 const Header = () => {
+    onAuthStateChanged(auth, (user) => {
+        if(user){
+            
+        }
+        else{
+            
+        }
+    })
+
     const isLogin = false;
     return (
         <header className="h-20 bg-gradient-to-br from-gray-800 via-red-100 to-green-800  flex px-10 drop-shadow-[0px_5px_10px_rgba(2,0,0)] text-xl font-semibold">
             <nav className=" w-full flex justify-between items-center ">
-                <Link href={HOME_ROUTE}>
-                <div>
-                    Logo
-                </div>
-                </Link>
+                {!isLogin &&
+                    <>
+                        <Link href={LOGIN_ROUTE}>
+                            <div>
+                                Logo
+                            </div>
+                        </Link>
+                    </>
+                }
+                {isLogin &&
+                    <>
+                        <Link href={HOME_ROUTE}>
+                            <div>
+                                Logo
+                            </div>
+                        </Link>
+                    </>
+                }
                 <ul className="flex gap-4">
                     {!isLogin &&
                         <>
@@ -25,10 +49,10 @@ const Header = () => {
                     {isLogin &&
                         <>
                             <Link href={PROFILE_ROUTE}>
-                            <li>Profile</li>
+                                <li>Profile</li>
                             </Link>
                             <Link href={LOGIN_ROUTE}>
-                            <li>Logout</li>
+                                <li>Logout</li>
                             </Link>
                         </>
                     }
